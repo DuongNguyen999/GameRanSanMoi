@@ -5,6 +5,7 @@ internal class Program
 {
     const int width = 20;
     const int height = 20;
+    static char[,] screen = new char[height, width];
     static int[] x = new int[50];
     static int[] y = new int[50];
     static int fruitX, fruitY;
@@ -30,46 +31,39 @@ internal class Program
         Console.Clear();
 
         // Vẽ màn hình game
-        for (int i = 0; i < width + 2; i++)
-            Console.Write("#");
-        Console.WriteLine();
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                if (i == 0 || i == height - 1 || j == 0 || j == width - 1)
+                {
+                    screen[i, j] = '#';
+                }
+                else
+                {
+                    screen[i, j] = ' ';
+                }
+            }
+        }
+
+        screen[y[0], x[0]] = 'O';
+        screen[fruitY, fruitX] = 'F';
+        for (int k = 1; k < tail; k++)
+        {
+            screen[y[k], x[k]] = 'O';
+        }
 
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
             {
-                if (j == 0)
-                    Console.Write("#");
-                if (i == y[0] && j == x[0])
-                    Console.Write("O");
-                else if (i == fruitY && j == fruitX)
-                    Console.Write("F");
-                else
-                {
-                    bool print = false;
-                    for (int k = 0; k < tail; k++)
-                    {
-                        if (x[k] == j && y[k] == i)
-                        {
-                            Console.Write("O");
-                            print = true;
-                        }
-                    }
-                    if (!print)
-                        Console.Write(" ");
-                }
-                if (j == width - 1)
-                    Console.Write("#");
+                Console.Write(screen[i, j]);
             }
             Console.WriteLine();
         }
 
-        for (int i = 0; i < width + 2; i++)
-            Console.Write("#");
-            Console.WriteLine();
-            Console.WriteLine("Score: " + score);
-            Console.WriteLine("Press X to quit the game.");
-            
+        Console.WriteLine("Score: " + score);
+        Console.WriteLine("Press X to quit the game.");
     }
 
     static void Input()
@@ -130,5 +124,4 @@ internal class Program
         Console.WriteLine("Game over!");
         Console.WriteLine("Your score is " + score);
     }
-    
 }
