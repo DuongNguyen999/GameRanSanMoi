@@ -5,11 +5,11 @@ internal class Program
 {
     const int width = 20;
     const int height = 20;
-
+    static char[,] screen = new char[height, width];
     static int[] x = new int[50];
     static int[] y = new int[50];
     static int fruitX, fruitY;
-    static int nTail;
+    static int tail;
     static bool gameOver;
     static int score;
     static ConsoleKeyInfo keyInfo = new ConsoleKeyInfo();
@@ -22,7 +22,7 @@ internal class Program
         fruitY = rand.Next(1, height);
         x[0] = width / 2;
         y[0] = height / 2;
-        nTail = 0;
+        tail = 0;
         score = 0;
     }
 
@@ -48,7 +48,7 @@ internal class Program
                 else
                 {
                     bool print = false;
-                    for (int k = 0; k < nTail; k++)
+                    for (int k = 0; k < tail; k++)
                     {
                         if (x[k] == j && y[k] == i)
                         {
@@ -67,9 +67,10 @@ internal class Program
 
         for (int i = 0; i < width + 2; i++)
             Console.Write("#");
-        Console.WriteLine();
-        Console.WriteLine("Score: " + score);
-        Console.WriteLine("Press X to quit the game.");
+            Console.WriteLine();
+            Console.WriteLine("Score: " + score);
+            Console.WriteLine("Press X to quit the game.");
+        
     }
 
     static void Input()
@@ -92,25 +93,26 @@ internal class Program
             y[0]++;
         if (keyInfo.Key == ConsoleKey.X)
             gameOver = true;
+            Console.WriteLine(" ");
 
         if (x[0] == fruitX && y[0] == fruitY)
         {
             Random rand = new Random();
             fruitX = rand.Next(1, width);
             fruitY = rand.Next(1, height);
-            nTail++;
+            tail++;
             score++;
         }
-
-        if (nTail == 10)
+        
+        if (tail == 3)
         {
-            Setup();
+          Setup();
         }
-
+        
         if (x[0] >= width || x[0] < 0 || y[0] >= height || y[0] < 0)
             gameOver = true;
 
-        for (int i = 1; i < nTail; i++)
+        for (int i = 1; i < tail; i++)
         {
             if (x[i] == x[0] && y[i] == y[0])
                 gameOver = true;
@@ -127,5 +129,7 @@ internal class Program
             Logic();
         }
         Console.WriteLine("Game over!");
+        Console.WriteLine("Your score is " + score);
     }
+    
 }
