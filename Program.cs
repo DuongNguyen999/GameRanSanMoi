@@ -5,7 +5,6 @@ internal class Program
 {
     const int width = 20;
     const int height = 20;
-    static char[,] screen = new char[height, width];
     static int[] x = new int[50];
     static int[] y = new int[50];
     static int fruitX, fruitY;
@@ -52,7 +51,7 @@ internal class Program
                     {
                         if (x[k] == j && y[k] == i)
                         {
-                            Console.Write("o");
+                            Console.Write("O");
                             print = true;
                         }
                     }
@@ -70,7 +69,7 @@ internal class Program
             Console.WriteLine();
             Console.WriteLine("Score: " + score);
             Console.WriteLine("Press X to quit the game.");
-        
+            
     }
 
     static void Input()
